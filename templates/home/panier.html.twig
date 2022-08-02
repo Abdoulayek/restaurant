@@ -9,9 +9,19 @@
 
 <div>
 
-Votre Panier !
-
-</div>
-       
-
+<section class="row">
+        {% for product in products %}
+            <div class="col-4 mt-4">
+                <div class="border border-dark rounded p-2 clearfix">
+                    <h2>{{ product.name}}</h2>
+                    <p>{{ product.price }} €</p>
+                 
+                    <hr>
+                    <a href={{path("cart_add",{id:product.id})}}class="btn btn-success">
+                        <i class="bi bi-cart-plus"></i> Ajouter
+                    </a>
+                </div>
+            </div>
+  {% endfor %}
+    </section>
 {% endblock %}

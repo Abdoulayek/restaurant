@@ -42,12 +42,20 @@ class ReservationFormType extends AbstractType
                 'label' => 'Heure de la réservation'
             ])
 
+            ->add('Telephone', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Téléphone'
+            ])
+
             ->add('Envoyer', SubmitType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
                 'label' => 'Envoyer'
             ])
+            
             
 
         ;

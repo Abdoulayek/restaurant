@@ -3,6 +3,18 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+<style>
+
+input[type=email], input[type=password]
+{
+  
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+
+}
+</style>
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

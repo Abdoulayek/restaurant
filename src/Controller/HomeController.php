@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Restaurant;
+use App\Repository\RestaurantRepository;
 use App\Form\ReservationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,15 +23,19 @@ class HomeController extends AbstractController
     }
 
     #[Route('/reservation', name: 'app_reservation')]
-    public function reservation(Request $request, EntityManagerInterface $entityManager): Response
+    public function reservation(Request $request, EntityManagerInterface $entityManager, RestaurantRepository $restau): Response
     {
         $reservation = new Restaurant();
         $form = $this->createForm(ReservationFormType::class, $reservation);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
+            
             $entityManager->persist($reservation);
             $entityManager->flush();
+
+          
+            
             $this->addFlash('success', 'Votre réservation a été effectué !');
   
         }
@@ -38,16 +43,11 @@ class HomeController extends AbstractController
        
         return $this->render('home/reservation.html.twig', [
             'reservationForm' => $form -> createView(),
+            'products' => $restau->findAll(),
         ]);
     }
 
-    #[Route('/panier', name: 'app_panier')]
-    public function panier(): Response
-    {
-        return $this->render('home/panier.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
-    }
+  
     
     #[Route('/menu', name: 'app_menu')]
     public function menu(): Response
